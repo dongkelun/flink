@@ -32,6 +32,7 @@ import org.apache.hadoop.hbase.HConstants;
 import java.util.Map;
 import java.util.Properties;
 
+import static org.apache.flink.connector.hbase.table.HBaseConnectorOptions.HBASE_CONF_DIR;
 import static org.apache.flink.connector.hbase.table.HBaseConnectorOptions.LOOKUP_CACHE_MAX_ROWS;
 import static org.apache.flink.connector.hbase.table.HBaseConnectorOptions.SINK_BUFFER_FLUSH_INTERVAL;
 import static org.apache.flink.connector.hbase.table.HBaseConnectorOptions.SINK_BUFFER_FLUSH_MAX_ROWS;
@@ -118,6 +119,9 @@ public class HBaseConnectorOptionsUtil {
                 getHBaseClientProperties(
                         ((org.apache.flink.configuration.Configuration) tableOptions).toMap());
         properties.forEach((k, v) -> hbaseClientConf.set(k.toString(), v.toString()));
+        hbaseClientConf.addResource(
+                new org.apache.hadoop.fs.Path(
+                        tableOptions.get(HBASE_CONF_DIR) + "/hbase-site.xml"));
         return hbaseClientConf;
     }
 

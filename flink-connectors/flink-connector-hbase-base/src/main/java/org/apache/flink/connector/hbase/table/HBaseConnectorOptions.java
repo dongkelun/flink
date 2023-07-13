@@ -51,6 +51,12 @@ public class HBaseConnectorOptions {
                     .defaultValue("/hbase")
                     .withDescription("The root dir in Zookeeper for HBase cluster.");
 
+    public static final ConfigOption<String> HBASE_CONF_DIR =
+            ConfigOptions.key("hbase.conf.dir")
+                    .stringType()
+                    .defaultValue("/etc/hbase/conf")
+                    .withDescription("Configuration folder path for hbase.");
+
     public static final ConfigOption<String> NULL_STRING_LITERAL =
             ConfigOptions.key("null-string-literal")
                     .stringType()
