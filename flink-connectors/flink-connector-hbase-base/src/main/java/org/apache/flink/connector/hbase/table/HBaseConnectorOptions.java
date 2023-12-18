@@ -55,7 +55,7 @@ public class HBaseConnectorOptions {
             ConfigOptions.key("hbase.conf.dir")
                     .stringType()
                     .defaultValue("/etc/hbase/conf")
-                    .withDescription("Configuration folder path for hbase.");
+                    .withDescription("The configuration folder path for hbase.");
 
     public static final ConfigOption<String> NULL_STRING_LITERAL =
             ConfigOptions.key("null-string-literal")

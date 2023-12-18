@@ -111,6 +111,9 @@ public class HBaseConnectorOptionsUtil {
         // create default configuration from current runtime env (`hbase-site.xml` in classpath)
         // first,
         Configuration hbaseClientConf = HBaseConfigurationUtil.getHBaseConfiguration();
+        hbaseClientConf.addResource(
+                new org.apache.hadoop.fs.Path(
+                        tableOptions.get(HBASE_CONF_DIR) + "/hbase-site.xml"));
         hbaseClientConf.set(HConstants.ZOOKEEPER_QUORUM, tableOptions.get(ZOOKEEPER_QUORUM));
         hbaseClientConf.set(
                 HConstants.ZOOKEEPER_ZNODE_PARENT, tableOptions.get(ZOOKEEPER_ZNODE_PARENT));
@@ -119,9 +122,6 @@ public class HBaseConnectorOptionsUtil {
                 getHBaseClientProperties(
                         ((org.apache.flink.configuration.Configuration) tableOptions).toMap());
         properties.forEach((k, v) -> hbaseClientConf.set(k.toString(), v.toString()));
-        hbaseClientConf.addResource(
-                new org.apache.hadoop.fs.Path(
-                        tableOptions.get(HBASE_CONF_DIR) + "/hbase-site.xml"));
         return hbaseClientConf;
     }
 
